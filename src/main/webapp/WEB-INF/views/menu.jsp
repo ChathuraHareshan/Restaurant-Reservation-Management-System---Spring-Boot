@@ -90,7 +90,7 @@
                   <h4 class="menu-name">${item.name}</h4>
                   <p class="menu-description">${item.description}</p>
                   <div class="menu-price">
-                    $${item.price} <small>/ serving</small>
+                    Rs.${item.price}.00 <small>/ serving</small>
                   </div>
                 </div>
               </div>
@@ -126,7 +126,7 @@
                   <h4 class="menu-name">${item.name}</h4>
                   <p class="menu-description">${item.description}</p>
                   <div class="menu-price">
-                    $${item.price} <small>/ serving</small>
+                    Rs.${item.price}.00 <small>/ serving</small>
                   </div>
                 </div>
               </div>
@@ -162,7 +162,7 @@
                   <h4 class="menu-name">${item.name}</h4>
                   <p class="menu-description">${item.description}</p>
                   <div class="menu-price">
-                    $${item.price} <small>/ serving</small>
+                    Rs.${item.price}.00 <small>/ serving</small>
                   </div>
                 </div>
               </div>
@@ -198,7 +198,7 @@
                   <h4 class="menu-name">${item.name}</h4>
                   <p class="menu-description">${item.description}</p>
                   <div class="menu-price">
-                    $${item.price} <small>/ glass</small>
+                    Rs.${item.price}.00 <small>/ glass</small>
                   </div>
                 </div>
               </div>
