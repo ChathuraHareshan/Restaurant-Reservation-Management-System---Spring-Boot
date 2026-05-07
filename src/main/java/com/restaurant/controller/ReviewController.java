@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -178,6 +179,20 @@ public class ReviewController {
         List<Review> pendingReviews = reviewService.getPendingReviews();
         List<Review> allReviews = reviewService.getAllReviewsForAdmin();
         Map<String, Object> stats = reviewService.getRatingStatistics();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        for (Review review : pendingReviews) {
+            if (review.getCreatedAt() != null) {
+                review.setCreatedAtStr(review.getCreatedAt().format(formatter));
+            }
+        }
+
+        for (Review review : allReviews) {
+            if (review.getCreatedAt() != null) {
+                review.setCreatedAtStr(review.getCreatedAt().format(formatter));
+            }
+        }
 
         model.addAttribute("pendingReviews", pendingReviews);
         model.addAttribute("allReviews", allReviews);

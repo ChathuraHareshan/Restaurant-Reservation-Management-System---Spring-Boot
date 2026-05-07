@@ -11,6 +11,9 @@ public class SpecialOffer {
     private LocalDate validTo;
     private boolean isActive;
 
+    private String validFromStr;
+    private String validToStr;
+
     public SpecialOffer() {}
 
     public int getId() { return id; }
@@ -33,4 +36,10 @@ public class SpecialOffer {
 
     public boolean isActive() { return isActive; }
     public void setActive(boolean active) { isActive = active; }
+
+    public String getValidFromStr() { return validFromStr; }
+    public void setValidFromStr(String validFromStr) { this.validFromStr = validFromStr; }
+
+    public String getValidToStr() { return validToStr; }
+    public void setValidToStr(String validToStr) { this.validToStr = validToStr; }
 }

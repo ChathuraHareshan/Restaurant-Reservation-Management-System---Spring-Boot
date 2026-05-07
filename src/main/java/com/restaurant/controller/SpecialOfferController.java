@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -18,6 +19,8 @@ public class SpecialOfferController {
 
     @Autowired
     private SpecialOfferService offerService;
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @GetMapping("/view")
     public String viewOffers(Model model) throws SQLException {
@@ -29,13 +32,35 @@ public class SpecialOfferController {
     @GetMapping("/admin/list")
     public String listAllOffers(Model model) throws SQLException {
         List<SpecialOffer> offers = offerService.getAllOffers();
+
+        int totalOffers = offers.size();
+        long activeCount = offers.stream().filter(SpecialOffer::isActive).count();
+        int maxDiscount = offers.stream()
+                .mapToInt(offer -> (int) offer.getDiscountPercentage())
+                .max()
+                .orElse(0);
+
+        for (SpecialOffer offer : offers) {
+            if (offer.getValidFrom() != null) {
+                offer.setValidFromStr(offer.getValidFrom().format(DATE_FORMATTER));
+            }
+            if (offer.getValidTo() != null) {
+                offer.setValidToStr(offer.getValidTo().format(DATE_FORMATTER));
+            }
+        }
+
         model.addAttribute("offers", offers);
+        model.addAttribute("totalOffers", totalOffers);
+        model.addAttribute("activeCount", activeCount);
+        model.addAttribute("maxDiscount", maxDiscount);
+
         return "admin/offers/list";
     }
 
     @GetMapping("/admin/add")
     public String showAddForm(Model model) {
         model.addAttribute("offer", new SpecialOffer());
+        model.addAttribute("minDate", LocalDate.now());
         return "admin/offers/add";
     }
 
@@ -49,6 +74,7 @@ public class SpecialOfferController {
 
         if (validFrom.isAfter(validTo)) {
             model.addAttribute("error", "Valid From date must be before Valid To date");
+            model.addAttribute("minDate", LocalDate.now());
             return "admin/offers/add";
         }
 
@@ -58,6 +84,7 @@ public class SpecialOfferController {
             return "redirect:/offers/admin/list";
         } else {
             model.addAttribute("error", "Failed to add offer");
+            model.addAttribute("minDate", LocalDate.now());
             return "admin/offers/add";
         }
     }

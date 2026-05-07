@@ -66,6 +66,7 @@ public class AdminController {
         }
 
         List<Admin> admins = adminService.getAllAdmins();
+
         model.addAttribute("admins", admins);
         return "admin/adminList";
     }

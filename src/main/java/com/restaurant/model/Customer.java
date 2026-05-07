@@ -9,6 +9,7 @@ public abstract class Customer {
     protected String address;
     protected String customerType;
     protected int loyaltyPoints;
+    protected String registrationDate;
 
     public Customer() {}
 
@@ -47,7 +48,6 @@ public abstract class Customer {
     public abstract double calculateDiscount(double amount);
     public abstract int addLoyaltyPoints(double amount);
 
-    private String registrationDate;
 
     public String getRegistrationDate() {
         return registrationDate;
@@ -56,5 +56,4 @@ public abstract class Customer {
     public void setRegistrationDate(String registrationDate) {
         this.registrationDate = registrationDate;
     }
-
 }

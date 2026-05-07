@@ -1,6 +1,7 @@
 package com.restaurant.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Admin {
     private int id;
@@ -12,6 +13,14 @@ public class Admin {
     private boolean isActive;
     private LocalDateTime lastLogin;
     private LocalDateTime createdAt;
+
+    private String lastLoginStr;
+    private String createdAtStr;
+
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+
 
     public Admin() {}
 
@@ -50,4 +59,20 @@ public class Admin {
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public String getLastLoginStr() {
+        return lastLoginStr;
+    }
+
+    public void setLastLoginStr(String lastLoginStr) {
+        this.lastLoginStr = lastLoginStr;
+    }
+
+    public String getCreatedAtStr() {
+        return createdAtStr;
+    }
+
+    public void setCreatedAtStr(String createdAtStr) {
+        this.createdAtStr = createdAtStr;
+    }
 }

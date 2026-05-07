@@ -97,9 +97,9 @@ public class ReservationService {
             boolean pointsAdded = customerDAO.updateLoyaltyPoints(reservation.getCustomerId(), points);
 
             if (pointsAdded) {
-                System.out.println("✅ Added " + points + " loyalty points to customer ID: " + reservation.getCustomerId());
+                System.out.println(" Added " + points + " loyalty points to customer ID: " + reservation.getCustomerId());
             } else {
-                System.out.println("❌ Failed to add loyalty points to customer ID: " + reservation.getCustomerId());
+                System.out.println(" Failed to add loyalty points to customer ID: " + reservation.getCustomerId());
             }
 
             return pointsAdded;

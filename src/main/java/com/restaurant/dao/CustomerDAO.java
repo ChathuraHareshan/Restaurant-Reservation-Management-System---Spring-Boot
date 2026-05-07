@@ -105,6 +105,7 @@ public class CustomerDAO {
     public List<Customer> getAllCustomers() throws SQLException {
         List<Customer> customers = new ArrayList<>();
         String sql = "SELECT * FROM customers";
+
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -177,6 +178,13 @@ public class CustomerDAO {
         customer.setAddress(rs.getString("address"));
         customer.setCustomerType(customerType);
         customer.setLoyaltyPoints(rs.getInt("loyalty_points"));
+
+        Timestamp registrationTimestamp = rs.getTimestamp("registration_date");
+        if (registrationTimestamp != null) {
+            customer.setRegistrationDate(registrationTimestamp.toString());
+        } else {
+            customer.setRegistrationDate("N/A");
+        }
 
         return customer;
     }

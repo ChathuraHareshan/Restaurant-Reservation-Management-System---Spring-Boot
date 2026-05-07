@@ -11,6 +11,9 @@ public class Review {
     private boolean isApproved;
     private LocalDate createdAt;
 
+    private String createdAtStr;
+
+
     private String customerName;
     private String customerEmail;
 
@@ -51,4 +54,12 @@ public class Review {
 
     public String getCustomerEmail() { return customerEmail; }
     public void setCustomerEmail(String customerEmail) { this.customerEmail = customerEmail; }
+
+    public String getCreatedAtStr() {
+        return createdAtStr;
+    }
+
+    public void setCreatedAtStr(String createdAtStr) {
+        this.createdAtStr = createdAtStr;
+    }
 }

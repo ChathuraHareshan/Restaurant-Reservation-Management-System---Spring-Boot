@@ -6,70 +6,56 @@
   <title>Customer Details - Admin</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <style>
-    .sidebar {
-      min-height: 100vh;
-      background-color: #343a40;
-    }
-    .sidebar a {
-      color: white;
-      text-decoration: none;
-      padding: 10px 15px;
-      display: block;
-    }
-    .sidebar a:hover {
-      background-color: #007bff;
-    }
-    .main-content {
-      padding: 20px;
-    }
-    .profile-card {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-    }
-    .info-card {
-      border-left: 4px solid #007bff;
-    }
-  </style>
+
+  <link rel="stylesheet" href="../.././../../css/viewCustomer.css">
+
 </head>
 <body>
+<button class="menu-toggle" id="menuToggle">
+  <i class="fas fa-bars"></i> Menu
+</button>
+
 <div class="container-fluid">
   <div class="row">
-    <!-- Sidebar -->
-    <div class="col-md-2 p-0 sidebar">
-      <div class="text-center py-3 bg-dark">
-        <h4 class="text-white">Admin Panel</h4>
+
+    <div class="col-md-2 p-0 sidebar" id="sidebar">
+      <div class="brand">
+        <h4><i class="fas fa-utensils"></i> Admin Panel</h4>
+        <p>Restaurant Management</p>
       </div>
-      <a href="/admin/dashboard">
-        <i class="fas fa-tachometer-alt"></i> Dashboard
-      </a>
-      <a href="/customer/admin/list" class="active">
-        <i class="fas fa-users"></i> Customer Management
-      </a>
-      <a href="/admin/tables/list">
-        <i class="fas fa-chair"></i> Table Management
-      </a>
-      <a href="/offers/admin/list">
-        <i class="fas fa-tag"></i> Special Offers
-      </a>
-      <a href="/reservation/admin/list">
-        <i class="fas fa-calendar-alt"></i> Reservations
-      </a>
-      <a href="/review/admin/moderation">
-        <i class="fas fa-star"></i> Reviews
-      </a>
-      <a href="/admin/list">
-        <i class="fas fa-user-shield"></i> Admin Management
-      </a>
-      <a href="/admin/logout">
-        <i class="fas fa-sign-out-alt"></i> Logout
-      </a>
+      <div class="nav flex-column">
+        <a href="/admin/dashboard" class="nav-link">
+          <i class="fas fa-tachometer-alt"></i> Dashboard
+        </a>
+        <a href="/customer/admin/list" class="nav-link active">
+          <i class="fas fa-users"></i> Customer Management
+        </a>
+        <a href="/admin/tables/list" class="nav-link">
+          <i class="fas fa-chair"></i> Table Management
+        </a>
+        <a href="/offers/admin/list" class="nav-link">
+          <i class="fas fa-tag"></i> Special Offers
+        </a>
+        <a href="/reservation/admin/list" class="nav-link">
+          <i class="fas fa-calendar-alt"></i> Reservations
+        </a>
+        <a href="/review/admin/moderation" class="nav-link">
+          <i class="fas fa-star"></i> Review Moderation
+        </a>
+        <a href="/admin/list" class="nav-link">
+          <i class="fas fa-user-shield"></i> Admin Management
+        </a>
+        <a href="/admin/logout" class="nav-link">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </div>
     </div>
 
     <div class="col-md-10 main-content">
       <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2><i class="fas fa-user-circle"></i> Customer Details</h2>
+        <h2 class="text-white"><i class="fas fa-user-circle"></i> Customer Details</h2>
         <a href="/customer/admin/list" class="btn btn-secondary">
           <i class="fas fa-arrow-left"></i> Back to List
         </a>
@@ -81,21 +67,21 @@
             <div class="card-body text-center">
               <i class="fas fa-user-circle fa-5x mb-3"></i>
               <h3>${customer.name}</h3>
-              <p class="mb-1">
+              <p class="mb-2">
                 <c:choose>
                   <c:when test="${customer.customerType == 'PREMIUM'}">
-                                            <span class="badge bg-warning text-dark">
+                                            <span class="badge bg-warning text-dark px-3 py-2">
                                                 <i class="fas fa-crown"></i> Premium Member (15% discount)
                                             </span>
                   </c:when>
                   <c:otherwise>
-                                            <span class="badge bg-secondary">
+                                            <span class="badge bg-secondary px-3 py-2">
                                                 <i class="fas fa-user"></i> Regular Member
                                             </span>
                   </c:otherwise>
                 </c:choose>
               </p>
-              <p class="mt-2">
+              <p class="mb-0">
                 <i class="fas fa-calendar"></i> Member since: ${customer.registrationDate}
               </p>
             </div>
@@ -106,12 +92,14 @@
               <i class="fas fa-star"></i> Loyalty Information
             </div>
             <div class="card-body text-center">
-              <h1 class="display-4">${customer.loyaltyPoints}</h1>
+              <h1 class="display-4 text-danger">${customer.loyaltyPoints}</h1>
               <p>Loyalty Points</p>
-              <div class="progress">
-                <div class="progress-bar bg-warning" style="width: ${customer.loyaltyPoints % 100}%"></div>
+              <div class="progress loyalty-progress">
+                <div class="progress-bar loyalty-progress-bar" style="width: ${customer.loyaltyPoints % 100}%"></div>
               </div>
-              <small class="text-muted">${100 - (customer.loyaltyPoints % 100)} more points to next level</small>
+              <small class="text-muted mt-2 d-block">
+                ${100 - (customer.loyaltyPoints % 100)} more points to next level
+              </small>
             </div>
           </div>
         </div>
@@ -125,26 +113,26 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="info-card p-3 mb-3">
-                    <label class="text-muted">Full Name</label>
-                    <h5>${customer.name}</h5>
+                    <label class="text-muted"><i class="fas fa-user"></i> Full Name</label>
+                    <h5 class="mb-0">${customer.name}</h5>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="info-card p-3 mb-3">
-                    <label class="text-muted">Email Address</label>
-                    <h5>${customer.email}</h5>
+                    <label class="text-muted"><i class="fas fa-envelope"></i> Email Address</label>
+                    <h5 class="mb-0">${customer.email}</h5>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="info-card p-3 mb-3">
-                    <label class="text-muted">Phone Number</label>
-                    <h5>${customer.phone}</h5>
+                    <label class="text-muted"><i class="fas fa-phone"></i> Phone Number</label>
+                    <h5 class="mb-0">${customer.phone}</h5>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="info-card p-3 mb-3">
-                    <label class="text-muted">Customer Type</label>
-                    <h5>
+                    <label class="text-muted"><i class="fas fa-tag"></i> Customer Type</label>
+                    <h5 class="mb-0">
                       <c:choose>
                         <c:when test="${customer.customerType == 'PREMIUM'}">
                           <span class="badge bg-warning text-dark">Premium</span>
@@ -158,8 +146,8 @@
                 </div>
                 <div class="col-md-12">
                   <div class="info-card p-3 mb-3">
-                    <label class="text-muted">Address</label>
-                    <h5>${customer.address != null ? customer.address : 'Not provided'}</h5>
+                    <label class="text-muted"><i class="fas fa-map-marker-alt"></i> Address</label>
+                    <h5 class="mb-0">${customer.address != null ? customer.address : 'Not provided'}</h5>
                   </div>
                 </div>
               </div>
@@ -173,12 +161,12 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-6">
-                  <button class="btn btn-primary w-100 mb-2" onclick="openEditModal()">
+                  <button class="btn btn-primary w-100 action-btn" onclick="openEditModal()">
                     <i class="fas fa-edit"></i> Edit Customer
                   </button>
                 </div>
                 <div class="col-md-6">
-                  <button class="btn btn-danger w-100 mb-2" onclick="deleteCustomer()">
+                  <button class="btn btn-danger w-100 action-btn" onclick="deleteCustomer()">
                     <i class="fas fa-trash"></i> Delete Account
                   </button>
                 </div>
@@ -235,7 +223,21 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
+  $('#menuToggle').click(function() {
+    $('#sidebar').toggleClass('show');
+  });
+
+  $(document).click(function(event) {
+    if (!$(event.target).closest('#sidebar').length && !$(event.target).closest('#menuToggle').length) {
+      if ($('#sidebar').hasClass('show')) {
+        $('#sidebar').removeClass('show');
+      }
+    }
+  });
+
   var editModal;
 
   $(document).ready(function() {
@@ -247,29 +249,23 @@
   }
 
   function deleteCustomer() {
-    if(confirm('Are you sure you want to delete this customer? This action cannot be undone!')) {
-      window.location.href = '/customer/admin/delete/${customer.id}';
-    }
+    Swal.fire({
+      title: 'Delete Account?',
+      text: 'This action cannot be undone! All customer data will be lost.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#e74c3c',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Yes, delete it',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if(result.isConfirmed) {
+        window.location.href = '/customer/admin/delete/${customer.id}';
+      }
+    });
   }
 
-  document.getElementById('editForm').addEventListener('submit', function(e) {
-    var name = document.getElementById('editName').value.trim();
-    var phone = document.getElementById('editPhone').value.trim();
 
-    if(name === '') {
-      e.preventDefault();
-      alert('Please enter customer name');
-      return false;
-    }
-
-    if(phone === '') {
-      e.preventDefault();
-      alert('Please enter phone number');
-      return false;
-    }
-
-    return true;
-  });
 </script>
 </body>
 </html>
